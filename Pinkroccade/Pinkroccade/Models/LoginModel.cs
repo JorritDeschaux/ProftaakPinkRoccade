@@ -5,7 +5,9 @@ using System.Web;
 
 namespace Pinkroccade.Models
 {
-    public class UserModel
+    public class LoginModel
     {
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
 }
