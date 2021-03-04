@@ -19,10 +19,10 @@ namespace Pinkroccade
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
 
-            //routes.MapRoute(
-            //name: "Default",
-            //url: "{controller}/{action}/{id}",
-            //defaults: new { controller = "Login", action = "Login", id = UrlParameter.Optional });
+            routes.MapRoute(
+            name: "Registrate",
+            url: "{controller}/{action}/{id}",
+            defaults: new { controller = "Registration", action = "Registrate", id = UrlParameter.Optional });
         }
     }
 }
