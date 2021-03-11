@@ -1,8 +1,6 @@
 
-*.config
 Pinkroccade/.vs/Pinkroccade/v16/.suo
 *.p7s
-*.nupkg
 *.dll
 *.pdb
 *.eot
@@ -11,11 +9,9 @@ Pinkroccade/.vs/Pinkroccade/v16/.suo
 *.woff
 *.woff2
 *.xdt
-*.xml
 *.props
 *.targets
 *.rsp
-*.csproj
 *.ps1
 *.exe
 *.cache
