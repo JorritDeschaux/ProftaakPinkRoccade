@@ -14,6 +14,12 @@ namespace Pinkroccade.Controllers
             return View();
         }
 
+        //
+        [HttpPost]
+        public ActionResult CreateIncident()
+		{
+            return View();
+		}
 
     }
 }
