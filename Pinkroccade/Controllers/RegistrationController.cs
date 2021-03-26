@@ -8,7 +8,7 @@ namespace Pinkroccade.Controllers
 {
     public class RegistrationController : Controller
     {
-        public ActionResult Registrate()
+        public ActionResult Registration()
         {
             return View("Registration");
         }
