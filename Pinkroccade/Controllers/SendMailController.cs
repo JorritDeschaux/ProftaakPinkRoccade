@@ -28,14 +28,8 @@ namespace Pinkroccade.Controllers
 
             string mailContent = $"{mailModel.body} <img src='data:image/png;base64,{Base64string}' /> ";
 
-            MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(mailModel.fromMail);
-            mail.To.Add(new MailAddress("Mailbox@Pinkroccade.nl"));
-            mail.Subject = mailModel.subject;
-            mail.IsBodyHtml = true;
-            mail.Body = mailContent;
+            MailHelper.SendMail(mailModel.fromMail, "Mailbox@Pinkrocadde.nl", mailModel.subject, mailContent);
 
-            MailHelper.smtpClient().Send(mail);
             return View("SendMail");
         }
     }
