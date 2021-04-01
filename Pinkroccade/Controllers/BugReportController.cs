@@ -29,14 +29,7 @@ namespace Pinkroccade.Controllers
 
             string mailContent = $"{mailModel.body}";
 
-            MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(mailModel.fromMail);
-            mail.To.Add(new MailAddress("Mailbox@Pinkroccade.nl"));
-            mail.Subject = mailModel.subject;
-            mail.IsBodyHtml = true;
-            mail.Body = mailContent;
-
-            MailHelper.smtpClient().Send(mail);
+            MailHelper.SendMail(mailModel.fromMail, "Mailbox@Pinkrocadde.nl", mailModel.subject, mailContent);
             return View("BugReport");
         }
     }

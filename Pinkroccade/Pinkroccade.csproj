@@ -273,9 +273,9 @@
     <Content Include="Views\Registration\Registration.cshtml" />
     <Content Include="Views\SendMail\SendMail.cshtml" />
     <Content Include="Views\Incidents\Index.cshtml" />
-<<<<<<< HEAD
+
     <Content Include="Views\BugReport\BugReport.cshtml" />
-=======
+
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -286,7 +286,7 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
->>>>>>> 677778c26fa72e562956c59903eba5dd266533aa
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
