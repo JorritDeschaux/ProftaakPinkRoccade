@@ -65,6 +65,7 @@
             WMTS: false,
             attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>',
         }).addTo(map);
+        var popup = L.popup();
         map.on('click', (ev) => {
             let latlng = map.mouseEventToLatLng(ev.originalEvent);
             @* console.log(latlng.lat + ', ' + latlng.lng); *@
@@ -74,7 +75,9 @@
                     $('#location').val(data.display_name)
                     $('#lat').val(latlng.lat)
                     $('#lng').val(latlng.lng)
+                    @* L.marker(latlng).addTo(map) *@
                     @* console.log(data); alert(data.display_name) *@
+                    popup.setLatLng(latlng).setContent(data.display_name).openOn(map)
                 })
                 .catch((error) => console.log(error))
         })
