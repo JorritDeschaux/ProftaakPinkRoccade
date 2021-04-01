@@ -18,8 +18,29 @@
 }
 
 <h2>Maak een melding</h2>
-
-<div id="mapid" style="height: 64rem"></div>
+<div class="row">
+    <div class="col-3">
+        <form action="">
+            <div class="form-group">
+                <label for="location">location</label>
+                <input class="form-control" type="text" name="location" id="" placeholder="Uw mail hier">
+            </div>
+            <div class="form-group">
+                <label for="description">description</label>
+                <textarea class="form-control" name="description" id="" cols="30" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="img">input</label>
+                <input class="form-control-file" type="file" name="img" id="img">
+            </div>
+            <input type="hidden" name="lang">
+            <input type="hidden" name="long">
+        </form>
+    </div>
+    <div class="col-9">
+        <div id="mapid" style="height: 64rem"></div>
+    </div>
+</div>
 
 @section scripts {
     @*TODO: Move javascript*@
@@ -32,8 +53,8 @@
                 origin: [-285401.920, 903401.920],
                 bounds: L.bounds([-285401.920, 903401.920], [595401.920, 22598.080]) // eslint-disable-line no-undef
             }),
-            // center: [52.176997, 5.200000],
-            center: [51.441642, 5.4697225],
+            center: [52.176997, 5.200000],
+            @* center: [51.441642, 5.4697225], *@
             zoom: 1
         });
         L.tileLayer('https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:28992/{z}/{x}/{y}.png', {
