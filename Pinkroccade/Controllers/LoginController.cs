@@ -17,7 +17,7 @@ namespace Pinkroccade.Controllers
 
         public ActionResult LoginAction(LoginModel loginModel)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 loginModel = Login.SelectUserData(loginModel);
                 if (loginModel.Unique_id != "" && loginModel.Unique_id != null)
