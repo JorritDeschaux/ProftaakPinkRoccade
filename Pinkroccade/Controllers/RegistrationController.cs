@@ -1,4 +1,5 @@
-﻿using Pinkroccade.Models;
+﻿using Pinkroccade.Classes;
+using Pinkroccade.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,27 @@ namespace Pinkroccade.Controllers
             return View("Registration");
         }
 
-		public ActionResult Register(RegistrationModel registrationModel)
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Registration(FormCollection formCollection)
 		{
 			if (ModelState.IsValid)
 			{
-				return View();
+				UserModel newUserModel = new UserModel()
+				{
+					First_Name = formCollection["First_Name"],
+					Last_Name = formCollection["Last_Name"],
+					Username = formCollection["Username"],
+					Password = formCollection["Password"],
+					EMail = formCollection["EMail"],
+				};
+
+				Register.CreateUserData(newUserModel);
+				return View("Registration");
 			}
 			else
 			{
-				return View("Login");
+				return View("Registration");
 			}
 		}
 	}
