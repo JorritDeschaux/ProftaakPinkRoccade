@@ -9,7 +9,7 @@ namespace Pinkroccade.Controllers
 {
     public class IncidentsController : Controller
     {
-        private readonly DbContext _context;
+        //private readonly DbContext _context;
 
         //public IncidentsController(DbContext context)
         //{
