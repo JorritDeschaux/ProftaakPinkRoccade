@@ -37,7 +37,7 @@ namespace Pinkroccade.Controllers
         }
         public ActionResult NoAccount()
         {
-            return View("~/Views/register/register.cshtml");
+            return View("~/Views/Registration/Registration.cshtml");
         }
     }
 }
