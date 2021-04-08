@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMap.cshtml";
 }
 
 @section header {
@@ -15,15 +16,19 @@
     <!-- Proj4 and Proj4Leaflet -->
     <script src="https://unpkg.com/proj4@2.5.0/dist/proj4-src.js"></script>
     <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
+    <style>
+
+    </style>
 }
 
-<h2>Maak een melding</h2>
-<div class="row">
-    <div class="col-3">
+<div class="row m-auto">
+    <div class="col-3 d-none d-md-block">
+        <h2>Maak een melding</h2>
         <form action="">
             <div class="form-group">
                 <label for="location">location</label>
-                <input class="form-control" type="text" name="location" id="location" readonly>
+                <textarea class="form-control" type="text" name="location" id="location" readonly></textarea>
+                @*<input class="form-control" type="text" name="location" id="location" readonly>*@
             </div>
             <div class="form-group">
                 <label for="description">description</label>
@@ -35,11 +40,11 @@
             </div>
             <input id="lat" type="hidden" name="lang">
             <input id="lng" type="hidden" name="lng">
-            <button class="btn btn-primary"type="submit">submit</button>
+            <button class="btn btn-primary" type="submit">submit</button>
         </form>
     </div>
-    <div class="col-9">
-        <div id="mapid" style="height: 64rem"></div>
+    <div class="col p-0">
+        <div id="mapid" style="width:100%; height:100vh"></div>
     </div>
 </div>
 
@@ -81,6 +86,10 @@
                     popup.setLatLng(latlng).setContent(data.display_name).openOn(map)
                 })
                 .catch((error) => console.log(error))
+        })
+
+        $('textarea').on('change', (evt) => {
+
         })
     </script>
 }
