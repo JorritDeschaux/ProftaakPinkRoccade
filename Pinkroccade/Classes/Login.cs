@@ -26,7 +26,8 @@ namespace Pinkroccade.Classes
                     loginModel.First_Name = executeString.GetString(1);
                     loginModel.Last_Name = executeString.GetString(2);
                 }
-            }
+				databaseConnection.Close();
+			}
             catch (Exception e)
             {
                 Console.WriteLine("error: " + e.Message);
