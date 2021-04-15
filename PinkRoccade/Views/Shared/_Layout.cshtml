@@ -14,26 +14,26 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">PinkRoccade</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    @Html.ActionLink("Home", "Index", "Home", null, new{@class="nav-link"})
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("SendMail", "Index", "SendMail", null, new{@class="nav-link"})
+                    @Html.ActionLink("SendMail", "Index", "SendMail", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Login", "Index", "Login", null, new{@class="nav-link"})
+                    @Html.ActionLink("Login", "Index", "Login", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Registration", "Registration", "Registration", null, new{@class="nav-link"})
+                    @Html.ActionLink("Registration", "Registration", "Registration", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("BugReport", "", "BugReport", null, new{@class="nav-link"})
+                    @Html.ActionLink("BugReport", "", "BugReport", null, new { @class = "nav-link" })
                 </li>
             </ul>
         </div>
@@ -42,6 +42,8 @@
         @RenderBody()
     </div>
 
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 
