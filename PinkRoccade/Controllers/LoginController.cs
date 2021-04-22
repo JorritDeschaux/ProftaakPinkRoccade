@@ -31,15 +31,10 @@ namespace PinkRoccade.Controllers
             {
                 UserModel user = context.GetLogin(loginModel);
 
-                if (loginModel.Unique_id != "" && loginModel.Unique_id != null)
+                if (user.Unique_id != null)
                 {
-<<<<<<< Updated upstream
                     HttpContext.Session.SetInt32(SessionKeyLoggedIn, 1);
                     SessionHelper.SetObjectAsJson(HttpContext.Session, SessionKeyUser, user);
-=======
-                    TempData["unique_id"] = loginModel.Unique_id;
-                    TempData["email"] = loginModel.Email;
->>>>>>> Stashed changes
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -65,20 +60,11 @@ namespace PinkRoccade.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Registration(IFormCollection formCollection)
+        public IActionResult Registration(UserModel newUser)
         {
             if (ModelState.IsValid)
             {
-                UserModel newUserModel = new UserModel()
-                {
-                    First_Name = formCollection["First_Name"],
-                    Last_Name = formCollection["Last_Name"],
-                    Username = formCollection["Username"],
-                    Password = formCollection["Password"],
-                    EMail = formCollection["EMail"],
-                };
-
-                context.CreateUser(newUserModel);
+                context.CreateUser(newUser);
                 return View("Registration");
             }
             else

@@ -9,7 +9,8 @@ namespace PinkRoccade.BS.Models
 {
 	public class UserModel
 	{
-		public string Unique_id { get; set; }
+		[Key]
+		public int Unique_id { get; set; }
 
         [DisplayName("Voornaam")]
         [Required(ErrorMessage = "Vul hier je voornaam in")]
