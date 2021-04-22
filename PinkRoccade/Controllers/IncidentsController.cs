@@ -17,7 +17,7 @@ namespace PinkRoccade.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateIncident()
+        public IActionResult CreateIncident(PinkRoccade.BS.Models.IncidentModel incidentModel)
         {
             return View();
         }

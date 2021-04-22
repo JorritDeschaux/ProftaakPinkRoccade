@@ -17,7 +17,7 @@ namespace PinkRoccade.BS.Models
 
         [Required]
         [StringLength(200)]
-        public decimal Location { get; set; }
+        public string Location { get; set; }
 
         [Required]
         public decimal Longtitude { get; set; }
@@ -37,9 +37,5 @@ namespace PinkRoccade.BS.Models
 
         [Required]
         public int User_Id { get; set; }
-
-
-
-
     }
 }
