@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using PinkRoccade.BS.Models;
 using System;
+using System.Web;
 
 namespace PinkRoccade.BS.Data
 {
@@ -62,11 +63,12 @@ namespace PinkRoccade.BS.Data
                 string StoreDataString = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `email`, `password`) VALUES (@val1,@val2,@val3,@val4,@val5);";
                 MySqlCommand storeData = new MySqlCommand(StoreDataString, conn);
 
-                storeData.Parameters.AddWithValue("@val1", userModel.First_Name);
-                storeData.Parameters.AddWithValue("@val2", userModel.Last_Name);
-                storeData.Parameters.AddWithValue("@val3", userModel.Username);
-                storeData.Parameters.AddWithValue("@val4", userModel.EMail);
-                storeData.Parameters.AddWithValue("@val5", userModel.Password);
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val1", userModel.First_Name));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val2", userModel.Last_Name));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val3", userModel.Username));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val4", userModel.EMail));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val5", userModel.Password));
+                
 
                 try
                 {
