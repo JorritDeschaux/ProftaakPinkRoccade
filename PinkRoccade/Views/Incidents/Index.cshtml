@@ -19,6 +19,9 @@
     <script src="https://unpkg.com/proj4@2.5.0/dist/proj4-src.js"></script>
     <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
     <style>
+        html, body {
+            height: 100%;
+        }
     </style>
 }
 
@@ -28,14 +31,13 @@
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
-    <div class="row m-auto">
+    <div class="row h-100 m-auto">
         <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
             <h2>Maak een melding</h2>
             <form asp-action="CreateIncident" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="location">Locatie</label>
                     <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
-                    @*<input class="form-control" type="text" name="location" id="location" readonly>*@
                 </div>
                 <div class="form-group">
                     <label for="description">Descriptie</label>
@@ -51,8 +53,7 @@
             </form>
         </div>
         <div class="col p-0">
-            @* TODO: fix height *@
-            <div id="mapid" style="width:100%; height:100vh"></div>
+            <div id="mapid" style="width:auto; height:100%;"></div>
         </div>
     </div>
 
@@ -70,7 +71,6 @@
                     <div class="form-group">
                         <label for="location">location</label>
                         <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
-                        @*<input class="form-control" type="text" name="location" id="sm-location" readonly>*@
                     </div>
                     <div class="form-group">
                         <label for="description">description</label>
