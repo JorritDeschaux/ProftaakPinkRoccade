@@ -13,10 +13,10 @@ namespace PinkRoccade.BS.Models
         public string Last_Name { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Required]
+        [Required(ErrorMessage = "Vul hier je e-mailadres in")]
         [Display(Name = "Enter Email")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Vul een wachtwoord in")]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }

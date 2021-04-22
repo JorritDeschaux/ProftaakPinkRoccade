@@ -11,26 +11,26 @@ namespace PinkRoccade.BS.Models
 	{
 		public string Unique_id { get; set; }
 
-		[DisplayName("First Name")]
-		[Required]
+        [DisplayName("Voornaam")]
+        [Required(ErrorMessage = "Vul hier je voornaam in")]
 		public string First_Name { get; set; }
 
-		[DisplayName("Last Name")]
-		[Required]
+        [DisplayName("Achternaam")]
+        [Required(ErrorMessage = "Vul hier je achternaam in")]
 		public string Last_Name { get; set; }
 
-		[DisplayName("Username")]
-		[Required]
+        [DisplayName("Gebruikersnaam")]
+        [Required(ErrorMessage = "Vul hier je gebruikersnaam in")]
 		public string Username { get; set; }
 
 		[DataType(DataType.Password)]
-		[DisplayName("Password")]
-		[Required]
+		[DisplayName("Wachtwoord")]
+        [Required(ErrorMessage = "Vul hier je wachtwoord in")]
 		public string Password { get; set; }
 
 		[DataType(DataType.EmailAddress)]
-		[DisplayName("E-Mail")]
-		[Required]
+        [DisplayName("E-Mail")]
+        [Required(ErrorMessage = "Vul hier je e-mailadres in")]
 		public string EMail { get; set; }
 
 	}
