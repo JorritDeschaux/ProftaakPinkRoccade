@@ -3,12 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using PinkRoccade.BS.Data;
 using PinkRoccade.BS.Models;
+using PinkRoccade.BS.Classes;
 
 namespace PinkRoccade.Controllers
 {
     public class LoginController : Controller
     {
         private readonly LoginContext context;
+
+        public const string SessionKeyLoggedIn = "_LoggedIn";
+
+        public const string SessionKeyUser = "_User";
 
         public LoginController(LoginContext context)
         {
@@ -24,11 +29,12 @@ namespace PinkRoccade.Controllers
         {
             if (ModelState.IsValid)
             {
-                loginModel = context.GetLogin(loginModel);
+                UserModel user = context.GetLogin(loginModel);
 
                 if (loginModel.Unique_id != "" && loginModel.Unique_id != null)
                 {
-                    TempData["unique_id"] = loginModel.Unique_id;
+                    HttpContext.Session.SetInt32(SessionKeyLoggedIn, 1);
+                    SessionHelper.SetObjectAsJson(HttpContext.Session, SessionKeyUser, user);
                     return RedirectToAction("Index", "Home");
                 }
                 else

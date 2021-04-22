@@ -20,8 +20,10 @@ namespace PinkRoccade.BS.Data
             return new MySqlConnection(ConnectionString);
         }
 
-        public LoginModel GetLogin(LoginModel loginModel)
+        public UserModel GetLogin(LoginModel loginModel)
         {
+            UserModel user = null;
+
             using(MySqlConnection conn = GetConnection())
             {
                 MySqlCommand getUserData = new MySqlCommand("SELECT * FROM user WHERE email=@val1 AND password=@val2", conn);
@@ -37,9 +39,11 @@ namespace PinkRoccade.BS.Data
                     var executeString = getUserData.ExecuteReader();
                     while (executeString.Read())
                     {
-                        loginModel.Unique_id = executeString.GetString(0);
-                        loginModel.First_Name = executeString.GetString(1);
-                        loginModel.Last_Name = executeString.GetString(2);
+                        user.Unique_id = executeString.GetString(0);
+                        user.First_Name = executeString.GetString(1);
+                        user.Last_Name = executeString.GetString(2);
+                        user.Username = executeString.GetString(3);
+                        user.EMail = executeString.GetString(5);
                     }
 
                     conn.Close();
@@ -52,7 +56,7 @@ namespace PinkRoccade.BS.Data
                 
             }
 
-            return loginModel;
+            return user;
         }
 
         public void CreateUser(UserModel userModel)
