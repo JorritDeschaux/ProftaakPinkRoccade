@@ -33,8 +33,13 @@ namespace PinkRoccade.Controllers
 
                 if (loginModel.Unique_id != "" && loginModel.Unique_id != null)
                 {
+<<<<<<< Updated upstream
                     HttpContext.Session.SetInt32(SessionKeyLoggedIn, 1);
                     SessionHelper.SetObjectAsJson(HttpContext.Session, SessionKeyUser, user);
+=======
+                    TempData["unique_id"] = loginModel.Unique_id;
+                    TempData["email"] = loginModel.Email;
+>>>>>>> Stashed changes
                     return RedirectToAction("Index", "Home");
                 }
                 else

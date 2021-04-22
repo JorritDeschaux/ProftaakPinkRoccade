@@ -31,23 +31,23 @@
     <div class="row m-auto">
         <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
             <h2>Maak een melding</h2>
-            <form asp-action="CreateIncident">
+            <form asp-action="CreateIncident" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="location">location</label>
+                    <label for="location">Locatie</label>
                     <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
                     @*<input class="form-control" type="text" name="location" id="location" readonly>*@
                 </div>
                 <div class="form-group">
-                    <label for="description">description</label>
+                    <label for="description">Descriptie</label>
                     <textarea class="form-control" name="Description" id="description" cols="30" rows="10"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="img">input</label>
+                    <label for="img">Bijlage</label>
                     <input class="form-control-file" type="file" name="img" id="img">
                 </div>
                 <input id="lat" type="hidden" name="lang">
                 <input id="lng" type="hidden" name="lng">
-                <button class="btn btn-primary" type="submit">submit</button>
+                <button class="btn btn-primary" type="submit">Verzenden</button>
             </form>
         </div>
         <div class="col p-0">
@@ -66,7 +66,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-action="CreateIncident">
+                <form asp-action="CreateIncident" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="location">location</label>
                         <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
