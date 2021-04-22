@@ -20,6 +20,7 @@ namespace PinkRoccade.BS.Models
 
         [DisplayName("Informatie")]
         [StringLength(500, ErrorMessage = "Je kan maximaal 500 karakters invoeren in dit veld")]
+        [MaxLength(500)]
         [Required(ErrorMessage = "Vul informatie over het probleem in")]
         public string body { get; set; }
 
