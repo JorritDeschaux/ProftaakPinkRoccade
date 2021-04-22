@@ -21,8 +21,10 @@ namespace PinkRoccade.Controllers
 
 
         [HttpPost]
-        public IActionResult CreateIncident(PinkRoccade.BS.Models.IncidentModel incidentModel)
+        public IActionResult CreateIncident(IncidentModel incidentModel)
         {
+            UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
+
             string img_tag = null;
             string Base64string = null;
             if (Request.Form.Files.Count > 0)
@@ -41,10 +43,10 @@ namespace PinkRoccade.Controllers
             }
 
             string mailContent = $"{incidentModel.Description} {img_tag??""}";
-            string mailadres_sender = (string)TempData.Peek("email");
-            MailHelper.SendMail(mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
+            string mailadres_sender = user.EMail;
+            MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
             incidentModel.Img_Data = Base64string;
-            incidentModel.User_Id = Convert.ToInt32(TempData.Peek("unique_id"));
+            incidentModel.User_Id = user.Unique_id;
             SaveIncident.Store_Incident(incidentModel);
 
             return RedirectToAction("Index");

@@ -22,7 +22,7 @@ namespace PinkRoccade.BS.Data
 
         public UserModel GetLogin(LoginModel loginModel)
         {
-            UserModel user = null;
+            UserModel user = new UserModel();
 
             using(MySqlConnection conn = GetConnection())
             {
@@ -39,7 +39,7 @@ namespace PinkRoccade.BS.Data
                     var executeString = getUserData.ExecuteReader();
                     while (executeString.Read())
                     {
-                        user.Unique_id = executeString.GetString(0);
+                        user.Unique_id = executeString.GetInt32(0);
                         user.First_Name = executeString.GetString(1);
                         user.Last_Name = executeString.GetString(2);
                         user.Username = executeString.GetString(3);
