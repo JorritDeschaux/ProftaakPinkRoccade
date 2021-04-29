@@ -9,11 +9,9 @@ namespace PinkRoccade.BS.Models
 {
 	public class IncidentModel
 	{
-        [Required]
+        [Key]
         public string Id { get; set; }
 
-        [StringLength(200)]
-        public string Adres { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -23,11 +21,10 @@ namespace PinkRoccade.BS.Models
         public decimal Longtitude { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        public decimal Latitude { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string Subject { get; set; }
+        public string Description { get; set; }
 
         [StringLength(5000)]
         public string Img_Data { get; set; }

@@ -1,99 +1,101 @@
 ﻿@model PinkRoccade.BS.Models.IncidentModel
-    @using Microsoft.AspNetCore.Http;
-    @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-    @addTagHelper *, DNTCaptcha.Core
+@using Microsoft.AspNetCore.Http;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, DNTCaptcha.Core
 
 
-    @{
-        ViewBag.Title = "Index";
-        Layout = "~/Views/Shared/_LayoutMap.cshtml";
-    }
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMap.cshtml";
+}
 
 
-    @section header {
+@section header {
 
-        <!-- leaflet -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-              integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-              crossorigin="" />
-        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-                integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-                crossorigin=""></script>
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+          integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+          crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin=""></script>
 
-        <!-- Proj4 and Proj4Leaflet -->
-        <script src="https://unpkg.com/proj4@2.5.0/dist/proj4-src.js"></script>
-        <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
-        <style>
-            html, body {
-                height: 100%;
-            }
-        </style>
-    }
+    <!-- Proj4 and Proj4Leaflet -->
+    <script src="https://unpkg.com/proj4@2.5.0/dist/proj4-src.js"></script>
+    <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
+    <style>
+        html, body {
+            height: 100%;
+        }
+    </style>
+}
 
-    <div id="sm-alert" class="alert alert-primary alert-dismissible fade show mb-0 p-2" style="display: none;">
-        <h5>Druk op de kaart om een melding te maken!</h5>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="row h-100 m-auto">
-        <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
-            <h2>Maak een melding</h2>
-            <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
-                <div class="form-group">
-                    <label for="location">Locatie</label>
-                    <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
-                </div>
-                @{
-                    if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                            </div>
+<div id="sm-alert" class="alert alert-primary alert-dismissible fade show mb-0 p-2" style="display: none;">
+    <h5>Druk op de kaart om een melding te maken!</h5>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="row h-100 m-auto">
+    <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
+        <h2>Maak een melding</h2>
+        <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
+            <div class="form-group">
+                <label for="location">Locatie</label>
+                <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
+            </div>
+            @{
+                if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
-                    }
+                    </div>
                 }
-                <div class="form-group">
-                    <label for="description">Descriptie</label>
-                    <textarea class="form-control" name="Description" id="description" cols="30" rows="5"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="img">Bijlage</label>
-                    <input class="form-control-file" type="file" name="img" id="img">
-                </div>
+            }
+            <div class="form-group">
+                <label for="description">Descriptie</label>
+                <textarea class="form-control" name="Description" id="description" cols="30" rows="5"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="img">Bijlage</label>
+                <input class="form-control-file" type="file" name="img" id="img">
+            </div>
+            <<<<<<< HEAD
 
-                <div class="input-group mb-3">
-                    <dnt-captcha asp-captcha-generator-max="999"
-                                 asp-captcha-generator-min="111"
-                                 asp-captcha-generator-language="English"
-                                 asp-captcha-generator-display-mode="ShowDigits"
-                                 asp-use-relative-urls="true"
-                                 asp-placeholder="vul beveilings code in"
-                                 asp-validation-error-message="Vul de juiste code in."
-                                 asp-font-name="Tahoma"
-                                 asp-font-size="20"
-                                 asp-fore-color="#333333"
-                                 asp-back-color="#ccc"
-                                 asp-text-box-class="text-box form-control"
-                                 asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
-                                 asp-validation-message-class="text-danger"
-                                 asp-refresh-button-class="fas fa-redo btn-sm"
-                                 asp-use-noise="false" />
-                </div>
-                <input id="lat" type="hidden" name="lang">
-                <input id="lng" type="hidden" name="lng">
-                <button class="btn btn-primary" type="submit">Verzenden</button>
-            </form>
-        </div>
-        <div class="col p-0">
-            <div id="mapid" style="width:auto; height:100%;"></div>
-        </div>
+            <div class="input-group mb-3">
+                <dnt-captcha asp-captcha-generator-max="999"
+                             asp-captcha-generator-min="111"
+                             asp-captcha-generator-language="English"
+                             asp-captcha-generator-display-mode="ShowDigits"
+                             asp-use-relative-urls="true"
+                             asp-placeholder="vul beveilings code in"
+                             asp-validation-error-message="Vul de juiste code in."
+                             asp-font-name="Tahoma"
+                             asp-font-size="20"
+                             asp-fore-color="#333333"
+                             asp-back-color="#ccc"
+                             asp-text-box-class="text-box form-control"
+                             asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
+                             asp-validation-message-class="text-danger"
+                             asp-refresh-button-class="fas fa-redo btn-sm"
+                             asp-use-noise="false" />
+            </div>
+            <input id="lat" type="hidden" name="lang">
+            <input id="lng" type="hidden" name="lng">
+            <input id="lat" type="hidden" name="Latitude">
+            <input id="lng" type="hidden" name="Longtitude">
+            <button class="btn btn-primary" type="submit">Verzenden</button>
+        </form>
     </div>
+    <div class="col p-0">
+        <div id="mapid" style="width:auto; height:100%;"></div>
+    </div>
+</div>
 
-<<<<<<< Updated upstream
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -138,72 +140,77 @@
                     <input id="sm-lat" type="hidden" name="lang">
                     <input id="sm-lng" type="hidden" name="lng">
                     <button class="btn btn-primary float-right" type="submit">Submit</button>
+                    <input id="sm-lat" type="hidden" name="Latitude">
+                    <input id="sm-lng" type="hidden" name="Longtitude">
+                    <button class="btn btn-primary float-right" type="submit">submit</button>
                 </form>
-=======
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Maak een melding</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
-                        <div class="form-group">
-                            <label for="location">Location</label>
-                            <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
-                        </div>
-                        @{
-                            if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
-                            {
-                                <div class="form-group">
-                                    <label for="img">Email</label>
-                                    <textarea class="form-control" name="Email" id="Email" cols="30" rows="1"></textarea>
-                                </div>
+                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Maak een melding</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
+                                    <div class="form-group">
+                                        <label for="location">Location</label>
+                                        <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
+                                    </div>
+                                    @{
+                                        if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
+                                        {
+                                            <div class="form-group">
+                                                <label for="img">Email</label>
+                                                <textarea class="form-control" name="Email" id="Email" cols="30" rows="1"></textarea>
+                                            </div>
 
-                            }
-                        }
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control" name="Description" id="sm-description" cols="30" rows="9"></textarea>
+                                        }
+                                    }
+                                    <div class="form-group">
+                                        <label for="description">Description</label>
+                                        <textarea class="form-control" name="Description" id="sm-description" cols="30" rows="9"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="img">input</label>
+                                        <input class="form-control-file" type="file" name="img" id="img">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <dnt-captcha asp-captcha-generator-max="999"
+                                                     asp-captcha-generator-min="111"
+                                                     asp-captcha-generator-language="English"
+                                                     asp-captcha-generator-display-mode="ShowDigits"
+                                                     asp-use-relative-urls="true"
+                                                     asp-placeholder="vul beveilings code in"
+                                                     asp-validation-error-message="Vul de juiste code in."
+                                                     asp-font-name="Tahoma"
+                                                     asp-font-size="20"
+                                                     asp-fore-color="#333333"
+                                                     asp-back-color="#ccc"
+                                                     asp-text-box-class="text-box form-control"
+                                                     asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
+                                                     asp-validation-message-class="text-danger"
+                                                     asp-refresh-button-class="fas fa-redo btn-sm"
+                                                     asp-use-noise="false" />
+                                    </div>
+                                    <input id="sm-lat" type="hidden" name="lang">
+                                    <input id="sm-lng" type="hidden" name="lng">
+                                    <button class="btn btn-primary float-right" type="submit">submit</button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="img">input</label>
-                            <input class="form-control-file" type="file" name="img" id="img">
-                        </div>
-                        <div class="input-group mb-3">
-                            <dnt-captcha asp-captcha-generator-max="999"
-                                         asp-captcha-generator-min="111"
-                                         asp-captcha-generator-language="English"
-                                         asp-captcha-generator-display-mode="ShowDigits"
-                                         asp-use-relative-urls="true"
-                                         asp-placeholder="vul beveilings code in"
-                                         asp-validation-error-message="Vul de juiste code in."
-                                         asp-font-name="Tahoma"
-                                         asp-font-size="20"
-                                         asp-fore-color="#333333"
-                                         asp-back-color="#ccc"
-                                         asp-text-box-class="text-box form-control"
-                                         asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
-                                         asp-validation-message-class="text-danger"
-                                         asp-refresh-button-class="fas fa-redo btn-sm"
-                                         asp-use-noise="false" />
-                        </div>
-                        <input id="sm-lat" type="hidden" name="lang">
-                        <input id="sm-lng" type="hidden" name="lng">
-                        <button class="btn btn-primary float-right" type="submit">submit</button>
-                    </form>
+                    </div>
                 </div>
->>>>>>> Stashed changes
             </div>
         </div>
     </div>
+</div>
 
-    @section scripts {
-        @*TODO: Move javascript*@
-        <script>
+@section scripts {
+    @*TODO: Move javascript*@
+    <script>
         let map = L.map('mapid', {
             continuousWorld: true,
             crs: new L.Proj.CRS('EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs', { // eslint-disable-line no-undef
@@ -225,7 +232,7 @@
             attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>',
         }).addTo(map);
         var popup = L.popup();
-        
+
         map.on('click', (ev) => {
             let isSMMedia = !window.matchMedia("(min-width: 768px)").matches
             let latlng = map.mouseEventToLatLng(ev.originalEvent);
@@ -258,5 +265,5 @@
             }
         })
 
-        </script>
-    }
+    </script>
+}
