@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
+using DNTCaptcha.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PinkRoccade.BS.Classes;
@@ -12,19 +13,34 @@ namespace PinkRoccade.Controllers
 {
     public class IncidentsController : Controller
     {
-
-        // GET: Incidents
         public IActionResult Index()
         {
             return View();
         }
+        private readonly IDNTCaptchaValidatorService _validatorService;
+        public IncidentsController(IDNTCaptchaValidatorService validatorService)
+        {
+            _validatorService = validatorService;
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateDNTCaptcha(
+        ErrorMessage = "Vul de juiste code in.",
+        CaptchaGeneratorLanguage = Language.English,
+        CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits)]
 
         [HttpPost]
         public IActionResult CreateIncident(IncidentModel incidentModel)
         {
-            if(ModelState.IsValid)
+			if (ModelState.IsValid)
 			{
+                if (!_validatorService.HasRequestValidCaptchaEntry(Language.English, DisplayMode.ShowDigits))
+                {
+                    this.ModelState.AddModelError("", "Vul de juiste code in.");
+                    return View("Index");
+                }
+
                 UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
 
                 string img_tag = null;
@@ -52,14 +68,14 @@ namespace PinkRoccade.Controllers
                 SaveIncident.Store_Incident(incidentModel);
 
                 return RedirectToAction("Index");
-            }
+			}
 			else
 			{
-
                 return View("Index", incidentModel);
 			}
          
         }
+
 
     }
 }
