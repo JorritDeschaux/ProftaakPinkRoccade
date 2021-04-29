@@ -1,4 +1,8 @@
 ﻿@model PinkRoccade.BS.Models.IncidentModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, DNTCaptcha.Core
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutMap.cshtml";
@@ -25,37 +29,55 @@
     </style>
 }
 
-    <div id="sm-alert" class="alert alert-primary alert-dismissible fade show mb-0 p-2" style="display: none;">
-        <h5>Druk op de kaart om een melding te maken!</h5>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+<div id="sm-alert" class="alert alert-primary alert-dismissible fade show mb-0 p-2" style="display: none;">
+    <h5>Druk op de kaart om een melding te maken!</h5>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="row h-100 m-auto">
+    <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
+        <h2>Maak een melding</h2>
+        <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
+            <div class="form-group">
+                <label for="location">Locatie</label>
+                <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
+            </div>
+            <div class="form-group">
+                <label for="description">Descriptie</label>
+                <textarea class="form-control" name="Description" id="description" cols="30" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="img">Bijlage</label>
+                <input class="form-control-file" type="file" name="img" id="img">
+            </div>
+            <div class="input-group mb-3">
+                <dnt-captcha asp-captcha-generator-max="999"
+                             asp-captcha-generator-min="111"
+                             asp-captcha-generator-language="English"
+                             asp-captcha-generator-display-mode="ShowDigits"
+                             asp-use-relative-urls="true"
+                             asp-placeholder="Enter Captcha"
+                             asp-validation-error-message="Vul de juiste code in."
+                             asp-font-name="Tahoma"
+                             asp-font-size="20"
+                             asp-fore-color="#333333"
+                             asp-back-color="#ccc"
+                             asp-text-box-class="text-box form-control"
+                             asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
+                             asp-validation-message-class="text-danger"
+                             asp-refresh-button-class="fas fa-redo btn-sm"
+                             asp-use-noise="false" />
+            </div>
+            <input id="lat" type="hidden" name="lang">
+            <input id="lng" type="hidden" name="lng">
+            <button class="btn btn-primary" type="submit">Verzenden</button>
+        </form>
     </div>
-    <div class="row h-100 m-auto">
-        <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
-            <h2>Maak een melding</h2>
-            <form asp-action="CreateIncident" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="location">Locatie</label>
-                    <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="description">Descriptie</label>
-                    <textarea class="form-control" name="Description" id="description" cols="30" rows="10"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="img">Bijlage</label>
-                    <input class="form-control-file" type="file" name="img" id="img">
-                </div>
-                <input id="lat" type="hidden" name="lang">
-                <input id="lng" type="hidden" name="lng">
-                <button class="btn btn-primary" type="submit">Verzenden</button>
-            </form>
-        </div>
-        <div class="col p-0">
-            <div id="mapid" style="width:auto; height:100%;"></div>
-        </div>
+    <div class="col p-0">
+        <div id="mapid" style="width:auto; height:100%;"></div>
     </div>
+</div>
 
 <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
