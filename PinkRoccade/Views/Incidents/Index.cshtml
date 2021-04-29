@@ -82,7 +82,7 @@
                     </div>
                     <input id="sm-lat" type="hidden" name="lang">
                     <input id="sm-lng" type="hidden" name="lng">
-                    <button class="btn btn-primary float-right" type="submit">submit</button>
+                    <button class="btn btn-primary float-right" type="submit">Submit</button>
                 </form>
             </div>
         </div>
@@ -113,6 +113,7 @@
             attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>',
         }).addTo(map);
         var popup = L.popup();
+        
         map.on('click', (ev) => {
             let isSMMedia = !window.matchMedia("(min-width: 768px)").matches
             let latlng = map.mouseEventToLatLng(ev.originalEvent);
