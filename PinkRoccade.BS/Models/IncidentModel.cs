@@ -37,5 +37,10 @@ namespace PinkRoccade.BS.Models
 
         [Required]
         public int User_Id { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Required(ErrorMessage = "Vul hier je e-mailadres in")]
+        [Display(Name = "E-mail")]
+        public string Email { get; set; }
     }
 }
