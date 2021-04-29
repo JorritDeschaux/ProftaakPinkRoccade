@@ -32,7 +32,7 @@ namespace PinkRoccade.BS.Models
 		[DataType(DataType.EmailAddress)]
         [DisplayName("E-Mail")]
         [Required(ErrorMessage = "Vul hier je e-mailadres in")]
-		public string EMail { get; set; }
+		public string Email { get; set; }
 
 	}
 }

@@ -43,7 +43,7 @@ namespace PinkRoccade.BS.Data
                         user.First_Name = executeString.GetString(1);
                         user.Last_Name = executeString.GetString(2);
                         user.Username = executeString.GetString(3);
-                        user.EMail = executeString.GetString(5);
+                        user.Email = executeString.GetString(5);
                     }
 
                     conn.Close();
@@ -70,7 +70,7 @@ namespace PinkRoccade.BS.Data
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val1", userModel.First_Name));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val2", userModel.Last_Name));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val3", userModel.Username));
-                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val4", userModel.EMail));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val4", userModel.Email));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val5", userModel.Password));
                 
 

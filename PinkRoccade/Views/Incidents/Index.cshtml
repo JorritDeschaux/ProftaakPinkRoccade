@@ -64,7 +64,6 @@
                 <label for="img">Bijlage</label>
                 <input class="form-control-file" type="file" name="img" id="img">
             </div>
-            <<<<<<< HEAD
 
             <div class="input-group mb-3">
                 <dnt-captcha asp-captcha-generator-max="999"
@@ -144,69 +143,70 @@
                     <input id="sm-lng" type="hidden" name="Longtitude">
                     <button class="btn btn-primary float-right" type="submit">submit</button>
                 </form>
-                <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Maak een melding</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
-                                    <div class="form-group">
-                                        <label for="location">Location</label>
-                                        <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
-                                    </div>
-                                    @{
-                                        if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
-                                        {
-                                            <div class="form-group">
-                                                <label for="img">Email</label>
-                                                <textarea class="form-control" name="Email" id="Email" cols="30" rows="1"></textarea>
-                                            </div>
-
-                                        }
-                                    }
-                                    <div class="form-group">
-                                        <label for="description">Description</label>
-                                        <textarea class="form-control" name="Description" id="sm-description" cols="30" rows="9"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="img">input</label>
-                                        <input class="form-control-file" type="file" name="img" id="img">
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <dnt-captcha asp-captcha-generator-max="999"
-                                                     asp-captcha-generator-min="111"
-                                                     asp-captcha-generator-language="English"
-                                                     asp-captcha-generator-display-mode="ShowDigits"
-                                                     asp-use-relative-urls="true"
-                                                     asp-placeholder="vul beveilings code in"
-                                                     asp-validation-error-message="Vul de juiste code in."
-                                                     asp-font-name="Tahoma"
-                                                     asp-font-size="20"
-                                                     asp-fore-color="#333333"
-                                                     asp-back-color="#ccc"
-                                                     asp-text-box-class="text-box form-control"
-                                                     asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
-                                                     asp-validation-message-class="text-danger"
-                                                     asp-refresh-button-class="fas fa-redo btn-sm"
-                                                     asp-use-noise="false" />
-                                    </div>
-                                    <input id="sm-lat" type="hidden" name="lang">
-                                    <input id="sm-lng" type="hidden" name="lng">
-                                    <button class="btn btn-primary float-right" type="submit">submit</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Maak een melding</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-action="CreateIncident" enctype="multipart/form-data" asp-controller="Incidents" asp-antiforgery="true" method="post">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
+                    </div>
+                    @{
+                        if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
+                        {
+                            <div class="form-group">
+                                <label for="img">Email</label>
+                                <textarea class="form-control" name="Email" id="Email" cols="30" rows="1"></textarea>
+                            </div>
+
+                        }
+                    }
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea class="form-control" name="Description" id="sm-description" cols="30" rows="9"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="img">input</label>
+                        <input class="form-control-file" type="file" name="img" id="img">
+                    </div>
+                    <div class="input-group mb-3">
+                        <dnt-captcha asp-captcha-generator-max="999"
+                                     asp-captcha-generator-min="111"
+                                     asp-captcha-generator-language="English"
+                                     asp-captcha-generator-display-mode="ShowDigits"
+                                     asp-use-relative-urls="true"
+                                     asp-placeholder="vul beveilings code in"
+                                     asp-validation-error-message="Vul de juiste code in."
+                                     asp-font-name="Tahoma"
+                                     asp-font-size="20"
+                                     asp-fore-color="#333333"
+                                     asp-back-color="#ccc"
+                                     asp-text-box-class="text-box form-control"
+                                     asp-text-box-template="<span class='input-group-prepend'><span class='form-group-text'></span></span>{0}"
+                                     asp-validation-message-class="text-danger"
+                                     asp-refresh-button-class="fas fa-redo btn-sm"
+                                     asp-use-noise="false" />
+                    </div>
+                    <input id="sm-lat" type="hidden" name="lang">
+                    <input id="sm-lng" type="hidden" name="lng">
+                    <button class="btn btn-primary float-right" type="submit">submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 @section scripts {
     @*TODO: Move javascript*@
