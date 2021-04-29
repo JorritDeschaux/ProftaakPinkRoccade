@@ -49,6 +49,8 @@ namespace PinkRoccade.Controllers
             incidentModel.User_Id = user.Unique_id;
             SaveIncident.Store_Incident(incidentModel);
 
+            
+
             return RedirectToAction("Index");
         }
 
