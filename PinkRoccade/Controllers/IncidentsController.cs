@@ -22,52 +22,59 @@ namespace PinkRoccade.Controllers
         {
             _validatorService = validatorService;
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         [ValidateDNTCaptcha(
-ErrorMessage = "Vul de juiste code in.",
-CaptchaGeneratorLanguage = Language.English,
-CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits)]
+        ErrorMessage = "Vul de juiste code in.",
+        CaptchaGeneratorLanguage = Language.English,
+        CaptchaGeneratorDisplayMode = DisplayMode.ShowDigits)]
 
         [HttpPost]
         public IActionResult CreateIncident(IncidentModel incidentModel)
         {
-            if (!_validatorService.HasRequestValidCaptchaEntry(Language.English, DisplayMode.ShowDigits))
-            {
-                this.ModelState.AddModelError("", "Vul de juiste code in.");
-                return View("Index");
-            }
-            UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
-
-            string img_tag = null;
-            string Base64string = null;
-            if (Request.Form.Files.Count > 0)
-            {
-                IFormFile file = Request.Form.Files[0];
-                if (file.ContentType.Contains("img"))
+			if (ModelState.IsValid)
+			{
+                if (!_validatorService.HasRequestValidCaptchaEntry(Language.English, DisplayMode.ShowDigits))
                 {
-                    // idk ites
+                    this.ModelState.AddModelError("", "Vul de juiste code in.");
+                    return View("Index");
                 }
 
-                BinaryReader br = new BinaryReader(file.OpenReadStream());
-                Byte[] byteImage = br.ReadBytes((Int32)file.Length);
-                Base64string = Convert.ToBase64String(byteImage, 0, byteImage.Length);
+                UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
 
-                img_tag = $"<img src='data:image/png;base64,{Base64string}'/>";
-            }
+                string img_tag = null;
+                string Base64string = null;
+                if (Request.Form.Files.Count > 0)
+                {
+                    IFormFile file = Request.Form.Files[0];
+                    if (file.ContentType.Contains("img"))
+                    {
+                        // idk ites
+                    }
 
-            string mailContent = $"{incidentModel.Description} {img_tag ?? ""}";
-            string mailadres_sender = user.EMail;
-            MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
-            incidentModel.Img_Data = Base64string;
-            incidentModel.User_Id = user.Unique_id;
-            SaveIncident.Store_Incident(incidentModel);
+                    BinaryReader br = new BinaryReader(file.OpenReadStream());
+                    Byte[] byteImage = br.ReadBytes((Int32)file.Length);
+                    Base64string = Convert.ToBase64String(byteImage, 0, byteImage.Length);
 
-            return RedirectToAction("Index");
+                    img_tag = $"<img src='data:image/png;base64,{Base64string}'/>";
+                }
+
+                string mailContent = $"{incidentModel.Description} {img_tag ?? ""}";
+                string mailadres_sender = user.EMail;
+                MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
+                incidentModel.Img_Data = Base64string;
+                incidentModel.User_Id = user.Unique_id;
+                SaveIncident.Store_Incident(incidentModel);
+
+                return RedirectToAction("Index");
+			}
+			else
+			{
+                return View("Index", incidentModel);
+			}
+         
         }
-
-
-
 
 
     }

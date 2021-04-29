@@ -50,7 +50,7 @@ namespace PinkRoccade.Controllers
 
         public IActionResult NoAccount()
         {
-            return View("~/Views/Registration/Registration.cshtml");
+            return View("~/Views/Login/Registration.cshtml");
         }
 
         public IActionResult Registration()
