@@ -11,7 +11,7 @@ namespace PinkRoccade.BS.Classes
         public static void Store_Incident(IncidentModel incidentModel)
         {
             MySqlConnection databaseConnection = new MySqlConnection("Datasource=127.0.0.1;port=3306;username=root;password=;database= pinkroccade;");
-            MySqlCommand SendIncidentCommand = new MySqlCommand("INSERT INTO `alert` (`location`, `Longitude`, `Latitude`, `description`, `img_data`, `status_id`, `user_id`) VALUES (@val1, @val2, @val3, @val4, @val5, @val6, @val7);", databaseConnection);
+            MySqlCommand SendIncidentCommand = new MySqlCommand("INSERT INTO `alert` (`location`, `latitude`, `longitude`, `description`, `img_data`, `status_id`, `user_id`) VALUES (@val1, @val2, @val3, @val4, @val5, @val6, @val7);", databaseConnection);
             SendIncidentCommand.Parameters.AddWithValue("@val1", incidentModel.Location);
             SendIncidentCommand.Parameters.AddWithValue("@val2", incidentModel.Latitude);
             SendIncidentCommand.Parameters.AddWithValue("@val3", incidentModel.Longitude);

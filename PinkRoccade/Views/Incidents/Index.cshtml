@@ -85,7 +85,7 @@
             </div>
 
             <input id="lat" type="hidden" name="Latitude">
-            <input id="lng" type="hidden" name="Longtitude">
+            <input id="lng" type="hidden" name="Longitude">
             <button class="btn btn-primary" type="submit">Verzenden</button>
         </form>
     </div>
@@ -137,7 +137,7 @@
                     </div>
                     <button class="btn btn-primary float-right" type="submit">Verzenden</button>
                     <input id="sm-lat" type="hidden" name="Latitude">
-                    <input id="sm-lng" type="hidden" name="Longtitude">
+                    <input id="sm-lng" type="hidden" name="Longitude">
                     <button class="btn btn-primary float-right" type="submit">Verzenden</button>
                 </form>
             </div>
@@ -257,7 +257,6 @@
                 .catch((error) => console.log(error))
         })
 
-        //var userId = @Html.ViewContext.HttpContext.Session.GetInt32("UserId");
         var request = new Request("/Incidents/Markers");
 
         var greenIcon = new L.Icon({
@@ -278,9 +277,11 @@
                     '<br><b>Beschrijving:</b> ' + d[i].description;
 
 
-                var layer = L.marker(L.latLng(d[i].longitude, d[i].latitude), { icon: greenIcon });
+
+                var layer = L.marker(L.latLng(d[i].latitude, d[i].longitude), { icon: greenIcon });
                     layer.bindPopup(popup);
                     layer.addTo(map);
+
 
             }
 

@@ -28,7 +28,7 @@
                 @if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") == 1)
                 {
                     <li class="nav-item">
-                        @Html.ActionLink("Incidenten historie", "", "IncidentOverview", null, new { @class = "nav-link" })
+                        @Html.ActionLink("Incidenten", "", "IncidentOverview", null, new { @class = "nav-link" })
                     </li>
                 }
             </ul>

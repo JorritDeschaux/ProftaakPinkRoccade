@@ -120,8 +120,8 @@ namespace PinkRoccade.Controllers
 					Status_Id = Convert.ToInt32(reader["status_id"]),
 					User_Id = Convert.ToInt32(reader["user_id"]),
 					Location = reader["location"].ToString(),
-					Latitude = Convert.ToDecimal(reader["Latitude"]),
-					Longitude = Convert.ToDecimal(reader["Longitude"]),
+					Latitude = Convert.ToDecimal(reader["latitude"]),
+					Longitude = Convert.ToDecimal(reader["longitude"]),
 					Description = reader["description"].ToString(),
 					Img_Data = reader["img_data"].ToString(),
 
