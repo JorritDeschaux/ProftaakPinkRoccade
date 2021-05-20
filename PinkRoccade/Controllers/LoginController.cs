@@ -34,6 +34,7 @@ namespace PinkRoccade.Controllers
                 if (user.Unique_id!= 0)
                 {
                     HttpContext.Session.SetInt32("LoggedIn", 1);
+                    HttpContext.Session.SetInt32("UserId", user.Unique_id);
                     SessionHelper.SetObjectAsJson(HttpContext.Session, SessionKeyUser, user);
                     return RedirectToAction("Index", "Incidents");
                 }
