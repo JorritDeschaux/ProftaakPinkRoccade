@@ -22,6 +22,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    @Html.ActionLink("Fout melden", "", "BugReport", null, new { @class = "nav-link" })
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
                 @if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
                 {
                     <li class="nav-item">
@@ -37,9 +42,6 @@
                         @Html.ActionLink("Uitloggen", "Logout", "Login", null, new { @class = "nav-link" })
                     </li>
                 }
-                <li class="nav-item">
-                    @Html.ActionLink("Fout melden", "", "BugReport", null, new { @class = "nav-link" })
-                </li>
             </ul>
         </div>
     </nav>
