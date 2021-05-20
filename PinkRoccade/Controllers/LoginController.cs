@@ -35,7 +35,7 @@ namespace PinkRoccade.Controllers
                 {
                     HttpContext.Session.SetInt32("LoggedIn", 1);
                     SessionHelper.SetObjectAsJson(HttpContext.Session, SessionKeyUser, user);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Incidents");
                 }
                 else
                 {
@@ -47,6 +47,13 @@ namespace PinkRoccade.Controllers
                 return View("Login");
             }
         }
+
+        public IActionResult Logout()
+		{
+            HttpContext.Session.Clear();
+            HttpContext.Session.SetInt32("LoggedIn", 0);
+            return View("Login");
+		}
 
         public IActionResult NoAccount()
         {
