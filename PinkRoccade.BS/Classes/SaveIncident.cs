@@ -14,7 +14,7 @@ namespace PinkRoccade.BS.Classes
             MySqlCommand SendIncidentCommand = new MySqlCommand("INSERT INTO `alert` (`location`, `Longitude`, `Latitude`, `description`, `img_data`, `status_id`, `user_id`) VALUES (@val1, @val2, @val3, @val4, @val5, @val6, @val7);", databaseConnection);
             SendIncidentCommand.Parameters.AddWithValue("@val1", incidentModel.Location);
             SendIncidentCommand.Parameters.AddWithValue("@val2", incidentModel.Latitude);
-            SendIncidentCommand.Parameters.AddWithValue("@val3", incidentModel.Longtitude);
+            SendIncidentCommand.Parameters.AddWithValue("@val3", incidentModel.Longitude);
             SendIncidentCommand.Parameters.AddWithValue("@val4", incidentModel.Description);
             SendIncidentCommand.Parameters.AddWithValue("@val5", incidentModel.Img_Data);
             SendIncidentCommand.Parameters.AddWithValue("@val6", 1);
