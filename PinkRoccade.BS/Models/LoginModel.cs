@@ -14,7 +14,7 @@ namespace PinkRoccade.BS.Models
 
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Vul hier je e-mailadres in")]
-        [Display(Name = "E-mail")]
+        [Display(Name = "E-Mail")]
         public string Email { get; set; }
         [Required(ErrorMessage = "Vul een wachtwoord in")]
         [DataType(DataType.Password)]

@@ -13,7 +13,7 @@ namespace PinkRoccade.BS.Models
         [Required(ErrorMessage = "Vul hier het onderwerp over het probleem in")]
         public string subject { get; set; }
 
-        [DisplayName("E-mailadres")]
+        [DisplayName("E-Mail")]
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Vul je e-mailadres hier in")]
         public string fromMail { get; set; }
