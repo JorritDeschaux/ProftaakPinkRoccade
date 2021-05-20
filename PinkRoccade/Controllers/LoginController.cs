@@ -52,7 +52,7 @@ namespace PinkRoccade.Controllers
 		{
             HttpContext.Session.Clear();
             HttpContext.Session.SetInt32("LoggedIn", 0);
-            return View("Login");
+            return View("~/Views/Incidents/Index.cshtml");
 		}
 
         public IActionResult NoAccount()
