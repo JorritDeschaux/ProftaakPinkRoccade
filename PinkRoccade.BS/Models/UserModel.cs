@@ -33,6 +33,7 @@ namespace PinkRoccade.BS.Models
         [DisplayName("E-Mail")]
         [Required(ErrorMessage = "Vul hier je e-mailadres in")]
 		public string Email { get; set; }
+		public bool IsAdmin { get; set; }
 
 	}
 }

@@ -24,7 +24,7 @@ namespace PinkRoccade.BS.Data
         {
             UserModel user = new UserModel();
 
-            using(MySqlConnection conn = GetConnection())
+            using (MySqlConnection conn = GetConnection())
             {
                 MySqlCommand getUserData = new MySqlCommand("SELECT * FROM user WHERE email=@val1 AND password=@val2", conn);
 
@@ -34,7 +34,6 @@ namespace PinkRoccade.BS.Data
                 try
                 {
                     conn.Open();
-
                     getUserData.Prepare();
                     var executeString = getUserData.ExecuteReader();
                     while (executeString.Read())
@@ -44,16 +43,22 @@ namespace PinkRoccade.BS.Data
                         user.Last_Name = executeString.GetString(2);
                         user.Username = executeString.GetString(3);
                         user.Email = executeString.GetString(5);
+                        if (executeString.GetInt32(7) == 1)
+                        {
+                            user.IsAdmin = true;
+                        }
+                        else
+                        {
+                            user.IsAdmin = false;
+                        }
                     }
-
                     conn.Close();
-
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("error: " + e.Message);
                 }
-                
+
             }
 
             return user;
@@ -72,7 +77,7 @@ namespace PinkRoccade.BS.Data
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val3", userModel.Username));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val4", userModel.Email));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val5", userModel.Password));
-                
+
 
                 try
                 {
