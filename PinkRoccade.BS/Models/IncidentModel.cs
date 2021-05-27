@@ -32,8 +32,7 @@ namespace PinkRoccade.BS.Models
         [Required]
         public int Status_Id { get; set; }
 
-        [Required]
-        public int User_Id { get; set; }
+        public int? User_Id { get; set; }
 
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-Mail")]
