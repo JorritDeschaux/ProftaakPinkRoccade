@@ -302,6 +302,7 @@
         })
         
         map.on('locationfound', (e) => {
+            var radius = e.accuracy / 2;
             L.circle(e.latlng, radius).addTo(map);
         });
         map.locate({setView: true, maxZoom: 16});
