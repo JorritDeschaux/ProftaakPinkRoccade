@@ -21,5 +21,6 @@ namespace PinkRoccade.BS.Models
         [DisplayName("E-Mail")]
         [Required(ErrorMessage = "Vul hier je e-mailadres in")]
         public string EMail { get; set; }
+       
     }
 }

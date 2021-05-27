@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<PinkRoccade.BS.Models.IncidentHistoryModel>
-
+@using PinkRoccade.BS.Classes;
 @{
     ViewData["Title"] = "IncidentOverview";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    UserModel user = SessionHelper.GetObjectFromJson<UserModel>(Html.ViewContext.HttpContext.Session, "_User");
 }
 
 <style>
@@ -40,6 +41,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.currentStatus)
             </th>
+            <th>
+                Set status
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -58,6 +62,16 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.currentStatus)
                 </td>
+                @if (user.IsAdmin == true)
+                {
+                    <th>
+                        <select id="Select1">
+                            <option>Open</option>
+                            <option>Wordt aan gewerkt</option>
+                            <option>Gesloten</option>
+                        </select>
+                    </th>
+                }
             </tr>
         }
     </tbody>
