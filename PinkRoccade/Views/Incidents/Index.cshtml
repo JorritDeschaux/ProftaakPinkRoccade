@@ -300,7 +300,10 @@
                 $('#sm-alert').hide()
             }
         })
-
+        
+        map.on('locationfound', (e) => {
+            L.circle(e.latlng, radius).addTo(map);
+        });
         map.locate({setView: true, maxZoom: 16});
 
     </script>
