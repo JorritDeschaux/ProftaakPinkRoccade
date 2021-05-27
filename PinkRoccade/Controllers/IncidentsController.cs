@@ -103,28 +103,27 @@ namespace PinkRoccade.Controllers
 
 		}
 
-		public IEnumerable<IncidentModel> GetMapMarkers()
+		public IEnumerable<dynamic> GetMapMarkers()
 		{
 			MySqlConnection conn = GetSqlConnection();
 			MySqlCommand getMarkers = new MySqlCommand("SELECT * FROM alert", conn);
-			List<IncidentModel> markers = new List<IncidentModel>();
+			List<dynamic> markers = new List<dynamic>();
 
 			conn.Open();
 
 			var reader = getMarkers.ExecuteReader();
 			while (reader.Read())
 			{
-				markers.Add(new IncidentModel
+				markers.Add(new
 				{
 					Id = Convert.ToInt32(reader["id"]),
 					Status_Id = Convert.ToInt32(reader["status_id"]),
 					User_Id = Convert.ToInt32(reader["user_id"]),
 					Location = reader["location"].ToString(),
-					Latitude = Convert.ToDecimal(reader["latitude"]),
-					Longitude = Convert.ToDecimal(reader["longitude"]),
+					Latitude = reader["latitude"],
+					Longitude = reader["longitude"],
 					Description = reader["description"].ToString(),
 					Img_Data = reader["img_data"].ToString(),
-
 				}); ;
 			}
 

@@ -18,10 +18,10 @@ namespace PinkRoccade.BS.Models
         public string Location { get; set; }
 
         [Required]
-        public decimal Longitude { get; set; }
+        public string Longitude { get; set; }
 
         [Required]
-        public decimal Latitude { get; set; }
+        public string Latitude { get; set; }
 
         [Required]
         public string Description { get; set; }
