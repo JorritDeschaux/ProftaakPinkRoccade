@@ -31,7 +31,7 @@ namespace PinkRoccade.Controllers
             smtp.Credentials = new System.Net.NetworkCredential("ad3f4fd6510412", "948abe13d2a8e6");
             smtp.Send(mailMessage);
 
-            TempData["Mail Sent"] = "Mail Succesvol verstuurd.";
+            TempData["Mail Sent"] = "Mail succesvol verstuurd.";
             return View();
         }
     }
