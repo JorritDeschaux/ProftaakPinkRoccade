@@ -48,5 +48,26 @@ namespace PinkRoccade.BS.Data
             }
             return modelList;
         }
+        public bool UpdateStatus(MySqlCommand updateIncident, bool prepare = true)
+        {
+            MySqlConnection conn = GetSqlConnection();
+            try
+            {
+                updateIncident.Connection = conn;
+                conn.Open();
+                if (prepare == true)
+                {
+                    updateIncident.Prepare();
+                }
+                var executeString = updateIncident.ExecuteReader();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error: " + e.Message);
+            }
+            return false;
+        }
     }
 }
