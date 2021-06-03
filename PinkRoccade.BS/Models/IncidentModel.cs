@@ -7,8 +7,8 @@ using System.Web;
 
 namespace PinkRoccade.BS.Models
 {
-	public class IncidentModel
-	{
+    public class IncidentModel
+    {
         [Key]
         public int Id { get; set; }
 
@@ -33,7 +33,7 @@ namespace PinkRoccade.BS.Models
         public int Status_Id { get; set; }
 
         public int? User_Id { get; set; }
-
+        [Required]
         [DataType(DataType.EmailAddress)]
         [Display(Name = "E-Mail")]
         public string Email { get; set; }

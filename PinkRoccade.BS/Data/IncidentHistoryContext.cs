@@ -15,17 +15,19 @@ namespace PinkRoccade.BS.Data
             return connectionString;
         }
 
-        public List<IncidentHistoryModel> GetIncidents(int userID)
+        public List<IncidentHistoryModel> GetIncidents(MySqlCommand getUserData, bool prepare = true)
         {
             List<IncidentHistoryModel> modelList = new List<IncidentHistoryModel>();
-            using (MySqlConnection conn = GetSqlConnection())
+            MySqlConnection conn = GetSqlConnection();
             {
-                MySqlCommand getUserData = new MySqlCommand("SELECT * FROM `alert` WHERE `user_id`= @val1", conn);
-                getUserData.Parameters.AddWithValue("@val1", userID);
+                getUserData.Connection = conn;
                 try
                 {
                     conn.Open();
-                    getUserData.Prepare();
+                    if (prepare == true)
+                    {
+                        getUserData.Prepare();
+                    }
                     var executeString = getUserData.ExecuteReader();
                     while (executeString.Read())
                     {
@@ -34,7 +36,7 @@ namespace PinkRoccade.BS.Data
                         incidentHistoryModel.Location = executeString.GetString(1);
                         incidentHistoryModel.Description = executeString.GetString(4);
                         incidentHistoryModel.currentStatus = (IncidentHistoryModel.CurrentStatus)executeString.GetInt32(6);
-                        incidentHistoryModel.User_ID = executeString.GetInt32(7);
+                        incidentHistoryModel.Email = executeString.GetString(8);
                         modelList.Add(incidentHistoryModel);
                     }
                     conn.Close();

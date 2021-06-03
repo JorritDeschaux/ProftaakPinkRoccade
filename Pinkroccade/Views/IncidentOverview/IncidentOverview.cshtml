@@ -98,10 +98,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.currentStatus)
             </th>
-            <th>
-                Set status
-            </th>
-        </tr>
+            @if (user.IsAdmin == true)
+            {
+                <th>
+                    Pas status aan
+                </th>
+            }
+            </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)

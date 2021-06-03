@@ -11,14 +11,16 @@ namespace PinkRoccade.BS.Models
         public int IncidentID { get; set; }
         [DisplayName("Locatie")]
         public string Location { get; set; }
+        [DisplayName("Beschrijving")]
         public string Description { get; set; }
         [DisplayName("Huidige Status")]
         public CurrentStatus currentStatus { get; set; }
         public enum CurrentStatus
         {
             Open = 1,
-            Gerepareerd = 2
+            Wip = 2,
+            Gerepareerd = 3
         }
-        public int User_ID { get; set;  }
+        public string Email { get; set;  }
     }
 }
