@@ -101,6 +101,7 @@ namespace PinkRoccade.Controllers
                 {
                     incidentModel.User_Id = user.Unique_id;
                     mailadres_sender = user.Email;
+
                 }
                 MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
                 SaveIncident.Store_Incident(incidentModel);
