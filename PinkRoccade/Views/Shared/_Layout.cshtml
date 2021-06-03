@@ -52,6 +52,15 @@
             </ul>
         </div>
     </nav>
+    @if (TempData["Mail Sent"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            @TempData["Mail Sent"]
+        </div>
+    }
     <div class="container body-content pt-3">
         @RenderBody()
     </div>

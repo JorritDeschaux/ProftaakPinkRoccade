@@ -104,6 +104,7 @@ namespace PinkRoccade.Controllers
                 }
                 MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
                 SaveIncident.Store_Incident(incidentModel);
+                TempData["Success"] = "Melding succesvol aangemaakt";
                 return RedirectToAction("Index");
             }
             else
