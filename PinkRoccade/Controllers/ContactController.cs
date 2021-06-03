@@ -30,9 +30,9 @@ namespace PinkRoccade.Controllers
             smtp.EnableSsl = true;
             smtp.Credentials = new System.Net.NetworkCredential("ad3f4fd6510412", "948abe13d2a8e6");
             smtp.Send(mailMessage);
-            ViewBag.message = "Bedankt voor uw mail. We nemen zo spoedig contact met u op.";
 
-            return View("Contact");
+            TempData["Mail Sent"] = "Mail Succesvol verstuurd.";
+            return View();
         }
     }
 }
