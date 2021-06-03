@@ -36,7 +36,7 @@ namespace PinkRoccade.BS.Data
                         incidentHistoryModel.Location = executeString.GetString(1);
                         incidentHistoryModel.Description = executeString.GetString(4);
                         incidentHistoryModel.currentStatus = (IncidentHistoryModel.CurrentStatus)executeString.GetInt32(6);
-                        incidentHistoryModel.User_ID = executeString.GetInt32(7);
+                        incidentHistoryModel.Email = executeString.GetString(8);
                         modelList.Add(incidentHistoryModel);
                     }
                     conn.Close();

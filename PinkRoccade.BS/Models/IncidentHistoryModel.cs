@@ -21,6 +21,6 @@ namespace PinkRoccade.BS.Models
             Wip = 2,
             Gerepareerd = 3
         }
-        public int User_ID { get; set;  }
+        public string Email { get; set;  }
     }
 }
