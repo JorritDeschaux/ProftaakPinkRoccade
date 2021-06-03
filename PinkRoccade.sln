@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31129.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinkRoccade", "PinkRoccade\PinkRoccade.csproj", "{7529716E-6715-407C-BEC3-2657D4520861}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkRoccade", "PinkRoccade\PinkRoccade.csproj", "{7529716E-6715-407C-BEC3-2657D4520861}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinkRoccade.BS", "PinkRoccade.BS\PinkRoccade.BS.csproj", "{4B367313-B491-44A2-94AF-0FE3A6C6ED1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PinkRoccade.BS", "PinkRoccade.BS\PinkRoccade.BS.csproj", "{4B367313-B491-44A2-94AF-0FE3A6C6ED1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
