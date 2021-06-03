@@ -274,6 +274,24 @@
             shadowSize: [41, 41]
         });
 
+        var orangeIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        var redIcon = new L.Icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
         fetch(request).then(d => d.json()).then(d =>
         {
             for (let i = 0; i < d.length; i++) {
@@ -282,9 +300,22 @@
                 var popup = '<b>Locatie:</b> ' + d[i].location +
                     '<br><b>Beschrijving:</b> ' + d[i].description;
 
+                var statusColor;
+
+                switch (d[i].status_Id) {
+                    case 1:
+                        statusColor = redIcon;
+                        break;
+                    case 2:
+                        statusColor = orangeIcon;
+                        break;
+                    case 3:
+                        statusColor = greenIcon;
+                        break;
+                }
 
 
-                var layer = L.marker(L.latLng(d[i].latitude, d[i].longitude), { icon: greenIcon });
+                var layer = L.marker(L.latLng(d[i].latitude, d[i].longitude), { icon: statusColor });
                     layer.bindPopup(popup);
                     layer.addTo(map);
 
