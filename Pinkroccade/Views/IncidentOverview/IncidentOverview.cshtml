@@ -104,7 +104,7 @@
                     Pas status aan
                 </th>
             }
-            </tr>
+        </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -122,40 +122,43 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.currentStatus)
                 </td>
+
                 @if (user.IsAdmin == true)
                 {
                     <th>
 
                         <!-- Button to open the modal login form -->
-                        <button onclick="document.getElementById('id01').style.display='block'">Edit</button>
+                        <button onclick="document.getElementById('@item.IncidentID').style.display = 'block'" class="btn btn-primary">Edit</button>
                         <!-- The Modal -->
-                        <div id="id01" class="modal">
-                            <span onclick="document.getElementById('id01').style.display='none'"
-                                  class="close" title="Close Modal">&times;</span>
+                        <div id="@item.IncidentID" class="modal">
 
-                            <!-- Modal Content -->
-                            <form class="modal-content animate">
-
-                                <div class="container">
-                                    <label for="status"><b>Huidige status</b></label>
-                                    <select id="status">
-                                        <option>Open</option>
-                                        <option>Wordt aan gewerkt</option>
-                                        <option>Gesloten</option>
-                                    </select>
+                            @using (Html.BeginForm("EditAction", "IncidentOverview", FormMethod.Post))
+                            {
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Admin weergave</h5>
+                                        <span onclick="document.getElementById('@item.IncidentID').style.display='none'"
+                                              class="close" title="Close Modal">&times;</span>
+                                    </div>
+                                    <form class="modal-content animate">
+                                        <input value="@item.IncidentID" type="hidden" name="IncidentID" />
+                                        <div class="container">
+                                            <label for="status"><b>Huidige status</b></label>
+                                            @Html.DropDownList("CurrentStatus", new SelectList(Enum.GetValues(typeof(IncidentHistoryModel.CurrentStatus))),
+                                    "pas status aan", new { @class = "form-control" })
+                                        </div>
+                                        <div class="container">
+                                            <label for="description"><b>Beschrijving</b></label>
+                                            <div>
+                                                <input type="text" placeholder="Voer werkzaamheden in" name="description" class="form-control" required>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" value="Aanpassen" class="btn btn-primary" />
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div class="container">
-                                    <label for="description"><b>Beschrijving</b></label>
-                                    <input type="text" placeholder="Voer werkzaamheden in" name="description" required>
-                                </div>
-                                <div class="container">
-                                    <button type="submit">Pas aan</button>
-                                </div>
-
-                                <div class="container">
-                                    <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Annuleren</button>
-                                </div>
-                            </form>
+                            }
                         </div>
 
                     </th>
@@ -164,10 +167,8 @@
         }
     </tbody>
 </table>
-<script>
-    // Get the modal
-    var modal = document.getElementById('id01');
 
+<script>
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
