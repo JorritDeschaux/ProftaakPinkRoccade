@@ -73,6 +73,8 @@ namespace PinkRoccade.Controllers
             if (ModelState.IsValid)
             {
                 context.CreateUser(newUser);
+                UserModel loginCheck = context.GetLogin(new LoginModel { Email = newUser.Email, Password = newUser.Password });
+                SaveIncident.Update_User_Id(loginCheck);
                 return View("Registration");
             }
             else

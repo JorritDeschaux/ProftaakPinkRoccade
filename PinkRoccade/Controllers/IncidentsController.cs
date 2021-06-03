@@ -6,6 +6,7 @@ using System.Web;
 using DNTCaptcha.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using PinkRoccade.BS.Classes;
 using PinkRoccade.BS.Models;
@@ -14,9 +15,16 @@ namespace PinkRoccade.Controllers
 {
     public class IncidentsController : Controller
     {
+        private readonly IConfiguration _configuration;
+        private readonly IDNTCaptchaValidatorService _validatorService;
+        public IncidentsController(IConfiguration configuration, IDNTCaptchaValidatorService validatorService) {
+            _validatorService = validatorService;
+            _configuration = configuration;
+        }
+
         public MySqlConnection GetSqlConnection()
         {
-            MySqlConnection connectionString = new MySqlConnection("server = localhost; port = 3306; database = pinkroccade; user = root");
+            MySqlConnection connectionString = new MySqlConnection(_configuration.GetConnectionString("DefaultConnection"));
             return connectionString;
         }
 
@@ -29,12 +37,6 @@ namespace PinkRoccade.Controllers
         {
             var data1 = GetMapMarkers();
             return Ok(data1);
-        }
-
-        private readonly IDNTCaptchaValidatorService _validatorService;
-        public IncidentsController(IDNTCaptchaValidatorService validatorService)
-        {
-            _validatorService = validatorService;
         }
 
         [HttpPost]
@@ -101,6 +103,7 @@ namespace PinkRoccade.Controllers
                 {
                     incidentModel.User_Id = user.Unique_id;
                     mailadres_sender = user.Email;
+
                 }
                 MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
                 SaveIncident.Store_Incident(incidentModel);

@@ -44,15 +44,12 @@
                 <label for="location">Locatie</label>
                 <textarea class="form-control" type="text" name="Location" id="location" readonly></textarea>
             </div>
-            @{
-                if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
-                {
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { })
-                        <input class="form-control" name="Email" required />
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                    </div>
-                }
+            @if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1) {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, htmlAttributes: new { })
+                    <input class="form-control" name="Email" required />
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
             }
             <div class="form-group">
                 <label for="description">Beschrijving</label>
@@ -107,11 +104,10 @@
                         <label for="location">Locatie</label>
                         <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
                     </div>
-                    @if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
-                    {
+                    @if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1) {
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new {  })
-                            <input class="form-control" name="Email" required/>
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { })
+                            <input class="form-control" name="Email" required />
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     }
@@ -166,8 +162,7 @@
                         <textarea class="form-control" type="text" name="Location" id="sm-location" readonly></textarea>
                     </div>
                     @{
-                        if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
-                        {
+                        if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1) {
                             <div class="form-group">
                                 <label for="img">E-mail</label>
                                 <textarea class="form-control" name="Email" id="Email" cols="30" rows="1"></textarea>
@@ -215,9 +210,6 @@
 @section scripts {
     @*TODO: Move javascript*@
     <script>
-
-
-
         let map = L.map('mapid', {
             continuousWorld: true,
             crs: new L.Proj.CRS('EPSG:28992', '+proj=sterea +lat_0=52.15616055555555 +lon_0=5.38763888888889 +k=0.9999079 +x_0=155000 +y_0=463000 +ellps=bessel +units=m +towgs84=565.2369,50.0087,465.658,-0.406857330322398,0.350732676542563,-1.8703473836068,4.0812 +no_defs', { // eslint-disable-line no-undef
@@ -293,10 +285,8 @@
             shadowSize: [41, 41]
         });
 
-        fetch(request).then(d => d.json()).then(d =>
-        {
+        fetch(request).then(d => d.json()).then(d => {
             for (let i = 0; i < d.length; i++) {
-
 
                 var popup = '<b>Locatie:</b> ' + d[i].location +
                     '<br><b>Beschrijving:</b> ' + d[i].description;
@@ -315,12 +305,9 @@
                         break;
                 }
 
-
                 var layer = L.marker(L.latLng(d[i].latitude, d[i].longitude), { icon: statusColor });
                     layer.bindPopup(popup);
                     layer.addTo(map);
-
-
             }
 
         });
@@ -332,12 +319,12 @@
                 $('#sm-alert').hide()
             }
         })
-        
+
         map.on('locationfound', (e) => {
             var radius = e.accuracy / 2;
 
             L.marker(e.latlng).addTo(map)
-                .bindPopup("U staat binnen" + radius + " meters van dit punt").openPopup();
+                .bindPopup("U staat binnen " + radius + " meters van dit punt").openPopup();
 
             L.circle(e.latlng, radius).addTo(map);
         });

@@ -64,6 +64,7 @@ namespace PinkRoccade.BS.Data
             return user;
         }
 
+
         public void CreateUser(UserModel userModel)
         {
             using (MySqlConnection conn = GetConnection())
@@ -94,6 +95,7 @@ namespace PinkRoccade.BS.Data
                 }
             }
         }
+
     }
 
 }
