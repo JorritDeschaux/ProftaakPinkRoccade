@@ -336,7 +336,7 @@
             var radius = e.accuracy / 2;
 
             L.marker(e.latlng).addTo(map)
-                .bindPopup("U staat binnen" + radius + " meters van dit punt").openPopup();
+                .bindPopup("U staat binnen " + radius + " meters van dit punt").openPopup();
 
             L.circle(e.latlng, radius).addTo(map);
         });
