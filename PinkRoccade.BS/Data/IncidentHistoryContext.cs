@@ -9,9 +9,15 @@ namespace PinkRoccade.BS.Data
 {
     public class IncidentHistoryContext
     {
+        public string ConnectionString { get; set; }
+
+        public IncidentHistoryContext(string connectionstring) {
+            ConnectionString = connectionstring;
+        }
+
         private MySqlConnection GetSqlConnection()
         {
-            MySqlConnection connectionString = new MySqlConnection("server = localhost; port = 3306; database = pinkroccade; user = root");
+            MySqlConnection connectionString = new MySqlConnection(ConnectionString);
             return connectionString;
         }
 

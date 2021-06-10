@@ -11,7 +11,7 @@ namespace Pinkroccade.BS
         {
 
             services.Add(new ServiceDescriptor(typeof(LoginContext), new LoginContext(configuration.GetConnectionString("DefaultConnection"))));
-
+            services.Add(new ServiceDescriptor(typeof(IncidentHistoryContext), new IncidentHistoryContext(configuration.GetConnectionString("DefaultConnection"))));
             return services;
         }
     }
