@@ -75,11 +75,13 @@ namespace PinkRoccade.Controllers
                 context.CreateUser(newUser);
                 UserModel loginCheck = context.GetLogin(new LoginModel { Email = newUser.Email, Password = newUser.Password });
                 SaveIncident.Update_User_Id(loginCheck);
-                return View("Registration");
+                TempData["Success"] = "Nieuw account succesvol aangemaakt.";
+                return View("Login");
             }
             else
             {
-                return View("Registration");
+                TempData["Danger"] = "Registratie is niet gelukt.";
+                return View("Registration", newUser);
             }
         }
     }
