@@ -53,7 +53,7 @@ namespace PinkRoccade.Controllers
             }
             return RedirectToAction("Index");
         }
-        public IActionResult Delete(string id )
+        public IActionResult Delete(string id)
         {
             PinkRoccade.BS.Data.IncidentHistoryContext incidentHistoryContext = new BS.Data.IncidentHistoryContext();
             MySqlCommand deleteCommad = new MySqlCommand("DELETE FROM `alert` WHERE `alert`.`id` = @val1");
