@@ -34,24 +34,31 @@ namespace PinkRoccade.Controllers
         public IActionResult EditAction(IncidentHistoryModel incidentHistory)
         {
             PinkRoccade.BS.Data.IncidentHistoryContext incidentHistoryContext = new BS.Data.IncidentHistoryContext();
-                if(incidentHistory.currentStatus == IncidentHistoryModel.CurrentStatus.Gerepareerd)
-                {
-                    MySqlCommand UpdateStatus = new MySqlCommand("UPDATE `alert` SET `description`= @val1,`status_id`= @val2,`solvedate`= @val3 WHERE `id` = @val4");
-                    UpdateStatus.Parameters.AddWithValue("@val1", incidentHistory.Description);
-                    UpdateStatus.Parameters.AddWithValue("@val2", (int)incidentHistory.currentStatus);
-                    UpdateStatus.Parameters.AddWithValue("@val3", DateTime.Now);
-                    UpdateStatus.Parameters.AddWithValue("@val4", incidentHistory.IncidentID);
-                    incidentHistoryContext.UpdateStatus(UpdateStatus, true);
-                }
-                else
-                {
-                    MySqlCommand UpdateStatus = new MySqlCommand("UPDATE `alert` SET `description`= @val1,`status_id`= @val2 WHERE `id` = @val4");
-                    UpdateStatus.Parameters.AddWithValue("@val1", incidentHistory.Description);
-                    UpdateStatus.Parameters.AddWithValue("@val2", (int)incidentHistory.currentStatus);
-                    UpdateStatus.Parameters.AddWithValue("@val4", incidentHistory.IncidentID);
-                    incidentHistoryContext.UpdateStatus(UpdateStatus, true);
-                }
-            
+            if (incidentHistory.currentStatus == IncidentHistoryModel.CurrentStatus.Gerepareerd)
+            {
+                MySqlCommand UpdateStatus = new MySqlCommand("UPDATE `alert` SET `description`= @val1,`status_id`= @val2,`solvedate`= @val3 WHERE `id` = @val4");
+                UpdateStatus.Parameters.AddWithValue("@val1", incidentHistory.Description);
+                UpdateStatus.Parameters.AddWithValue("@val2", (int)incidentHistory.currentStatus);
+                UpdateStatus.Parameters.AddWithValue("@val3", DateTime.Now);
+                UpdateStatus.Parameters.AddWithValue("@val4", incidentHistory.IncidentID);
+                incidentHistoryContext.UpdateStatus(UpdateStatus, true);
+            }
+            else
+            {
+                MySqlCommand UpdateStatus = new MySqlCommand("UPDATE `alert` SET `description`= @val1,`status_id`= @val2 WHERE `id` = @val4");
+                UpdateStatus.Parameters.AddWithValue("@val1", incidentHistory.Description);
+                UpdateStatus.Parameters.AddWithValue("@val2", (int)incidentHistory.currentStatus);
+                UpdateStatus.Parameters.AddWithValue("@val4", incidentHistory.IncidentID);
+                incidentHistoryContext.UpdateStatus(UpdateStatus, true);
+            }
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(string id )
+        {
+            PinkRoccade.BS.Data.IncidentHistoryContext incidentHistoryContext = new BS.Data.IncidentHistoryContext();
+            MySqlCommand deleteCommad = new MySqlCommand("DELETE FROM `alert` WHERE `alert`.`id` = @val1");
+            deleteCommad.Parameters.AddWithValue("@val1", id);
+            incidentHistoryContext.UpdateStatus(deleteCommad, true);
             return RedirectToAction("Index");
         }
     }
