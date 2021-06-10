@@ -117,7 +117,8 @@ namespace PinkRoccade.Controllers
         public IEnumerable<dynamic> GetMapMarkers()
         {
             MySqlConnection conn = GetSqlConnection();
-            MySqlCommand getMarkers = new MySqlCommand("SELECT * FROM alert", conn);
+            MySqlCommand getMarkers = new MySqlCommand("SELECT * FROM alert where solvedate < @limitDate or solvedate is null", conn);
+            getMarkers.Parameters.AddWithValue("@limitDate", DateTime.Now.AddDays(14));
             List<dynamic> markers = new List<dynamic>();
 
             conn.Open();
