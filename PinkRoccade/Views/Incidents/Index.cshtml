@@ -9,9 +9,7 @@
     Layout = "~/Views/Shared/_LayoutMap.cshtml";
 }
 
-
 @section header {
-
     <!-- leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
           integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -23,6 +21,11 @@
     <!-- Proj4 and Proj4Leaflet -->
     <script src="https://unpkg.com/proj4@2.5.0/dist/proj4-src.js"></script>
     <script src="https://unpkg.com/proj4leaflet@1.0.1"></script>
+
+    <!-- Leaflet-control-geocoder -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
     <style>
         html, body {
             height: 100%;
@@ -146,8 +149,6 @@
     </div>
 </div>
 
-
-
 @section scripts {
     @*TODO: Move javascript*@
     <script>
@@ -172,6 +173,8 @@
             attribution: 'Kaartgegevens &copy; <a href="https://www.kadaster.nl">Kadaster</a>',
         }).addTo(map);
         var popup = L.popup();
+        let geocoder = L.Control.geocoder().addTo(map);
+
 
         map.on('click', (ev) => {
             let isSMMedia = !window.matchMedia("(min-width: 768px)").matches
@@ -190,14 +193,26 @@
                         $('#location').val(data.display_name)
                         $('#lat').val(latlng.lat)
                         $('#lng').val(latlng.lng)
-                        @* L.marker(latlng).addTo(map) *@
-                        @* console.log(data); alert(data.display_name) *@
                     }
                 })
                 .catch((error) => console.log(error))
         })
-
         var request = new Request("/Incidents/Markers");
+
+        geocoder.on('markgeocode', res => {
+            let location = res.geocode
+            let isSMMedia = !window.matchMedia("(min-width: 768px)").matches
+            if (isSMMedia) {
+                $('#sm-location').val(location.name)
+                $('#sm-lat').val(location.center.lat)
+                $('#sm-lng').val(location.center.lng)
+                $('#modal').modal()
+            } else {
+                $('#location').val(location.name)
+                $('#lat').val(location.center.lat)
+                $('#lng').val(location.center.lng)
+            }
+        })
 
         var greenIcon = new L.Icon({
             iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
@@ -252,7 +267,13 @@
             }
 
         });
-
+        $(window).on('load', () => {
+            if (!window.matchMedia("(min-width: 768px)").matches) {
+                $('#sm-alert').show()
+            } else {
+                $('#sm-alert').hide()
+            }
+        })
         $(window).on('resize', () => {
             if (!window.matchMedia("(min-width: 768px)").matches) {
                 $('#sm-alert').show()
