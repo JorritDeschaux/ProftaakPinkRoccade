@@ -62,19 +62,22 @@
                 opacity: 1;
             }
 
-                .legend i.icon {
-                    background-size: 18px;
-                    background-color: rgba(255, 255, 255, 1);
-                }
+            .legend i.icon {
+                background-size: 18px;
+                background-color: rgba(255, 255, 255, 1);
+            }
     </style>
 }
 
-<div id="sm-alert" class="alert alert-primary alert-dismissible fade show mb-0 p-2" style="display: none;">
-    <h5>Druk op de kaart om een melding te maken!</h5>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<div style="position: absolute; top: 0; left: 0; right: 0; margin-top: 4rem; z-index: 9999; margin-left: 4rem; margin-right: 4rem;">
+    <div id="sm-alert" class="alert alert-primary alert-dismissible fade show mb-0 p-2" style="display: none;">
+        <h5 style="padding-right: 1rem;">Druk op de kaart om een melding te maken!</h5>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="padding: 0.5rem;">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
 </div>
+
 <div class="row h-100 m-auto">
     <div class="col-lg-4 col-md-5 col-6 d-none d-md-block">
         <h2>Maak een melding</h2>
@@ -343,6 +346,5 @@
             L.circle(e.latlng, radius).addTo(map);
         });
         map.locate({ setView: true, maxZoom: 16 });
-
     </script>
 }
