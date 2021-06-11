@@ -244,7 +244,7 @@
         fetch(request).then(d => d.json()).then(d => {
             for (let i = 0; i < d.length; i++) {
 
-                var popup = '<b>Locatie:</b> ' + d[i].location +
+                var popup = '<b>Incident ID:</b> ' + d[i].id + '<br><b>Locatie:</b> ' + d[i].location +
                     '<br><b>Beschrijving:</b> ' + d[i].description;
 
                 var statusColor;
