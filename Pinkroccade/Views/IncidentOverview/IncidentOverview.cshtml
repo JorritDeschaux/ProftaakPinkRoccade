@@ -81,7 +81,14 @@
     }
 </style>
 
-<h1>Overzicht van incidenten</h1>
+@if(user.IsAdmin)
+{
+    <h1>Overzicht van alle incidenten</h1>
+}
+else
+{
+    <h1>Overzicht van eigen gemelde incidenten</h1>
+}
 
 <table class="table">
     <thead>
