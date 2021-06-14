@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PinkRoccade.BS.Classes;
 using PinkRoccade.BS.Models;
 using System.Net.Mail;
 
@@ -13,7 +14,17 @@ namespace PinkRoccade.Controllers
         [HttpPost]
         public IActionResult Index(ContactModel contactModel)
         {
-            string email = contactModel.Email;
+            UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
+
+            string email = string.Empty;
+            if (contactModel.Email == null)
+            {
+                email = user.Email;
+            }
+            else
+            {
+                email = contactModel.Email;
+            }
             string subject = contactModel.Subject;
             string body = contactModel.Body;
 
@@ -31,7 +42,7 @@ namespace PinkRoccade.Controllers
             smtp.Credentials = new System.Net.NetworkCredential("ad3f4fd6510412", "948abe13d2a8e6");
             smtp.Send(mailMessage);
 
-            TempData["Mail Sent"] = "Mail Succesvol verstuurd.";
+            TempData["Mail Sent"] = "Mail succesvol verstuurd.";
             return View();
         }
     }

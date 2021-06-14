@@ -70,14 +70,15 @@ namespace PinkRoccade.BS.Data
             using (MySqlConnection conn = GetConnection())
             {
 
-                string StoreDataString = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `email`, `password`) VALUES (@val1,@val2,@val3,@val4,@val5);";
+                string StoreDataString = "INSERT INTO `user` (`first_name`, `last_name`, `username`, `password`, `email`, `isadmin`) VALUES (@val1,@val2,@val3,@val4,@val5,@val6);";
                 MySqlCommand storeData = new MySqlCommand(StoreDataString, conn);
 
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val1", userModel.First_Name));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val2", userModel.Last_Name));
                 HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val3", userModel.Username));
-                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val4", userModel.Email));
-                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val5", userModel.Password));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val4", userModel.Password));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val5", userModel.Email));
+                HttpUtility.HtmlEncode(storeData.Parameters.AddWithValue("@val6", userModel.IsAdmin));
 
 
                 try

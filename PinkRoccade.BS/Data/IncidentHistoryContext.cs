@@ -9,9 +9,15 @@ namespace PinkRoccade.BS.Data
 {
     public class IncidentHistoryContext
     {
+        public string ConnectionString { get; set; }
+
+        public IncidentHistoryContext(string connectionstring) {
+            ConnectionString = connectionstring;
+        }
+
         private MySqlConnection GetSqlConnection()
         {
-            MySqlConnection connectionString = new MySqlConnection("server = localhost; port = 3306; database = pinkroccade; user = root");
+            MySqlConnection connectionString = new MySqlConnection(ConnectionString);
             return connectionString;
         }
 
@@ -47,6 +53,27 @@ namespace PinkRoccade.BS.Data
                 }
             }
             return modelList;
+        }
+        public bool UpdateStatus(MySqlCommand updateIncident, bool prepare = true)
+        {
+            MySqlConnection conn = GetSqlConnection();
+            try
+            {
+                updateIncident.Connection = conn;
+                conn.Open();
+                if (prepare == true)
+                {
+                    updateIncident.Prepare();
+                }
+                var executeString = updateIncident.ExecuteReader();
+                conn.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("error: " + e.Message);
+            }
+            return false;
         }
     }
 }

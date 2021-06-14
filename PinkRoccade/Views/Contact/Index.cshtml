@@ -12,11 +12,16 @@
     <div class="col-md-4">
         <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
+            @if (Html.ViewContext.HttpContext.Session.GetInt32("LoggedIn") != 1)
+            {
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            }
+ 
+
             <div class="form-group">
                 <label asp-for="Subject" class="control-label"></label>
                 <input asp-for="Subject" class="form-control" />
@@ -36,7 +41,7 @@
 </div>
 
 <div>
-    <a asp-controller = "Incidents" asp-action="Index">Terug naar de kaart</a>
+    <a asp-controller="Incidents" asp-action="Index">Terug naar de kaart</a>
 </div>
 
 @section Scripts {

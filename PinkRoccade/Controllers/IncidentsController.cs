@@ -49,24 +49,18 @@ namespace PinkRoccade.Controllers
         [HttpPost]
         public IActionResult CreateIncident(IncidentModel incidentModel)
         {
-            if (ModelState.IsValid)
-            {
+            if (SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User")!= null || incidentModel.Email != null)
+            {//check if there is an email to use for the incident
                 if (!_validatorService.HasRequestValidCaptchaEntry(Language.English, DisplayMode.ShowDigits))
-                {
+                {//check if captcha is left empty
                     this.ModelState.AddModelError("", "Vul de juiste code in.");
                     return View("Index");
-                }
-                UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
+                }             
                 string img_tag = null;
-                string Base64string = null;
-                string mailadres_sender = incidentModel.Email;
+                string Base64string = null;           
                 if (Request.Form.Files.Count > 0)
-                {
+                {//check if there is a file added
                     IFormFile file = Request.Form.Files[0];
-                    if (file.ContentType.Contains("img"))
-                    {
-                        // idk ites
-                    }
                     BinaryReader br = new BinaryReader(file.OpenReadStream());
                     Byte[] byteImage = br.ReadBytes((Int32)file.Length);
                     Base64string = Convert.ToBase64String(byteImage, 0, byteImage.Length);
@@ -74,8 +68,8 @@ namespace PinkRoccade.Controllers
                 }
                 string mailContent = $"{incidentModel.Description} {img_tag ?? ""}";
                 incidentModel.Img_Data = Base64string;
-                if (user == null)
-                {
+                if (SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User") == null)
+                {//if user isnt logged in get the user id using the email
                     MySqlConnection conn = GetSqlConnection();
                     MySqlCommand getUserData = new MySqlCommand("SELECT `id` FROM user WHERE email=@val1", conn);
                     getUserData.Parameters.AddWithValue("@val1", incidentModel.Email);
@@ -100,18 +94,20 @@ namespace PinkRoccade.Controllers
                     }
                 }
                 else
-                {
+                {//if logged in use the email of the logged in user
+                    UserModel user = SessionHelper.GetObjectFromJson<UserModel>(HttpContext.Session, "_User");
                     incidentModel.User_Id = user.Unique_id;
-                    mailadres_sender = user.Email;
-
+                    incidentModel.Email = user.Email;
                 }
+                string mailadres_sender = incidentModel.Email;
                 MailHelper.SendMail((string)mailadres_sender, "Mailbox@Pinkrocadde.nl", incidentModel.Location, mailContent);
                 SaveIncident.Store_Incident(incidentModel);
-                TempData["Success"] = "Melding succesvol aangemaakt";
+                TempData["Success"] = "Melding succesvol aangemaakt.";
                 return RedirectToAction("Index");
             }
             else
-            {
+            {// give error
+                TempData["Danger"] = "Melding is niet aangemaakt.";
                 return RedirectToAction("Index", incidentModel);
             }
 
@@ -121,7 +117,8 @@ namespace PinkRoccade.Controllers
         public IEnumerable<dynamic> GetMapMarkers()
         {
             MySqlConnection conn = GetSqlConnection();
-            MySqlCommand getMarkers = new MySqlCommand("SELECT * FROM alert", conn);
+            MySqlCommand getMarkers = new MySqlCommand("SELECT * FROM alert where solvedate < @limitDate or solvedate is null", conn);
+            getMarkers.Parameters.AddWithValue("@limitDate", DateTime.Now.AddDays(14));
             List<dynamic> markers = new List<dynamic>();
 
             conn.Open();

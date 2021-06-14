@@ -22,5 +22,6 @@ namespace PinkRoccade.BS.Models
             Gerepareerd = 3
         }
         public string Email { get; set;  }
+        public DateTime solvedate { get; set; }
     }
 }
