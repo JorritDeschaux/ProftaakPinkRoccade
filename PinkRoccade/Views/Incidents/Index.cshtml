@@ -239,7 +239,9 @@
             fetch(`https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`)
                 .then((response) => response.json())
                 .then(data => {
-                    popup.setLatLng(latlng).setContent(data.display_name).openOn(map)
+                    let address = data.address
+                    let popup_content = `${address.village||address.city}<br>${address.road} ${address.house_number}<br>${address.postcode}`
+                    popup.setLatLng(latlng).setContent(popup_content).openOn(map)
                     if (isSMMedia) {
                         $('#sm-location').val(data.display_name)
                         $('#sm-lat').val(latlng.lat)
