@@ -241,13 +241,14 @@
                     let address = data.address
                     let popup_content = `${address.village||address.city}<br>${address.road} ${address.house_number}<br>${address.postcode}`
                     popup.setLatLng(latlng).setContent(popup_content).openOn(map)
+                    let form_location_content = `${address.village || address.city}, ${address.road} ${address.house_number}, ${address.postcode}`
                     if (isSMMedia) {
-                        $('#sm-location').val(data.display_name)
+                        $('#sm-location').val(form_location_content)
                         $('#sm-lat').val(latlng.lat)
                         $('#sm-lng').val(latlng.lng)
                         $('#modal').modal()
                     } else {
-                        $('#location').val(data.display_name)
+                        $('#location').val(form_location_content)
                         $('#lat').val(latlng.lat)
                         $('#lng').val(latlng.lng)
                     }
