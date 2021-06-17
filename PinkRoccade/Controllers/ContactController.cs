@@ -29,9 +29,9 @@ namespace PinkRoccade.Controllers
             string body = contactModel.Body;
 
             MailMessage mailMessage = new MailMessage();
-            mailMessage.To.Add(email);
+            mailMessage.To.Add("db3b3cdf8c-c3e97c@inbox.mailtrap.io");
             mailMessage.Subject = subject;
-            mailMessage.From = new MailAddress("db3b3cdf8c-c3e97c@inbox.mailtrap.io");
+            mailMessage.From = new MailAddress(email);
             mailMessage.Body = body;
             mailMessage.IsBodyHtml = false;
 
@@ -39,7 +39,7 @@ namespace PinkRoccade.Controllers
             smtp.Port = 2525;
             smtp.UseDefaultCredentials = true;
             smtp.EnableSsl = true;
-            smtp.Credentials = new System.Net.NetworkCredential("ad3f4fd6510412", "948abe13d2a8e6");
+            smtp.Credentials = new System.Net.NetworkCredential("836db70506df9b", "fff8be6a5c82be");
             smtp.Send(mailMessage);
 
             TempData["Mail Sent"] = "Mail succesvol verstuurd.";
